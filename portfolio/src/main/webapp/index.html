@@ -2,17 +2,86 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Joel's Portfolio 😃</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <style>
+        img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        }   
+    </style>
+    <style type="text/css">
+        .changeFont {
+            font-family: 'Arial';
+        }
+        .myButton {
+        background-color: #bbb;
+        padding: .5em;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 6px;
+        color: #fff;
+        font-family: 'Calibri';
+        font-size: 20px;
+        text-decoration: none;
+        border: none;
+        display: inline-block
+        }
+        .myButton:hover {
+        border: none;
+        background: orange;
+        box-shadow: 0px 0px 1px #777;
+        cursor: pointer;
+        }
+        #greeting-container {
+        padding: .5em;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 6px;
+        color: #0000A0;
+        font-family: 'Calibri';
+        font-size: 20px;
+        text-decoration: none;
+        border: none;
+        }
+    </style>
   </head>
   <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
+    <div id="content" class='changeFont'>
+      <h1>JOEL'S PORTFOLIO 😃</h1>
+      <img src="images/profile_picture.JPG" style='height: 100%; width: 100%; object-fit: contain'/>
+      <h2>About Me</h2>
+      <p align="justify">
+        Hello everyone! My name is Joel Lim and am currently a 4th year student studying Computer Science and Accounting (DDP) in NUS. 
+        Though I've taken quite a number of computing modules, this is my first time doing web development and I'm pretty noob about it so am pretty excited to learn. 
+        Apart from SPS, I am also interning this summer at Facebook and it has been a good experience so far!
+        In my free time, I like to workout, play sports, game a little, watch shows, learn the piano (recently took it up).
+        Look forward to working with and learning from all of you!
+      </p>
+      <h2>Experiences & Past Projects</h2>
+      <ul>
+        <li>Teaching Assistant for CS2040 (teaching data structures and algorithms)</li>
+        <li>Side Project: Created a game matrix generator by modelling it after a Constraint Satisfaction Problem</li>
+        <li>Side Project: Created a Telegram bubble tea bot for friends to consolidate bubble tea orders</li>
+        <li>Side Project: Created a Sudoku solver</li>
+        <li>Programming Languages in order of familiarity: Java, C, Python, Hack, C++, R, VBA, Javascript</li>
+      </ul>
+      <h2>Related Links (Let's Connect!)</h2>
+      <ul>
+        <li><a href="https://github.com/hhjoel" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/joel-lim-a37b5a171/" target="_blank">LinkedIn</a></li>
+      </ul>
+      <h2>More About Me</h2>
+      <p>Find out more about me by pressing the button below!</p>
+      <button id="fact" class='myButton' onclick="addRandomGreeting()">Generate Random Fact</button>
       <div id="greeting-container"></div>
+      <p>This is what I look like 23 years ago!</p>
+      <button id="picture1" class='myButton' onclick="addBabyPhoto()">View Baby Photo</button>
+      <button id="picture2" class='myButton' onclick="removeBabyPhoto()">Hide Baby Photo</button>
+      <div id="picture-container" style='height: 100%; width: 100%; object-fit: contain'></div>
+      <h2>---End of Portfolio---</h2>
     </div>
   </body>
 </html>

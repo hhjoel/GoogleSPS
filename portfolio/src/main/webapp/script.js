@@ -17,7 +17,16 @@
  */
 function addRandomGreeting() {
   const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+        ["I lived in New York for 4 months",
+         "Sometimes, I need to eat 2 portions of food to be full",
+         "I like playing poker",
+         "I once ripped off my entire fingernail while doing weights",
+         "I did not travel overseas at all from 2008 to 2018",
+         "My favourite dessert is chocolate lava cake",
+         "I'm interested in relativity and quantum physics",
+         "My favourite cuisin is Jap food",
+         "My favourite pokemon is Snorlax",
+         "My first meal of the year on 1st Jan is usually McDonalds supper after countdown"]
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
@@ -25,4 +34,26 @@ function addRandomGreeting() {
   // Add it to the page.
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
+}
+
+/**
+ * Adds a young photo
+ */
+function addBabyPhoto() {
+    const imgUrl = 'images/baby_picture.JPG';
+    const imgElement = document.createElement('img');
+    imgElement.src = imgUrl;
+    imgElement.style = 'height: 100%; width: 100%; object-fit: contain; padding-top: 1em;';
+
+    const babyPhotoContainer = document.getElementById('picture-container');
+    babyPhotoContainer.innerHTML = '';
+    babyPhotoContainer.appendChild(imgElement);
+}
+
+/**
+ * Removes the young photo
+ */
+function removeBabyPhoto() {
+    const babyPhotoContainer = document.getElementById('picture-container');
+    babyPhotoContainer.innerHTML = '';
 }
