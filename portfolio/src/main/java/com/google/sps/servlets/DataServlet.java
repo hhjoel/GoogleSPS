@@ -14,7 +14,9 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +26,27 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private static ArrayList<String> dummyData = new ArrayList<>();
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    dummyData.add("RandomString1");
+    dummyData.add("RandomString2");
+    dummyData.add("RandomString3");
+
+    String json = convertToJsonUsingGson(dummyData);
+
     response.setContentType("text/html;");
-    response.getWriter().println("Fetch Successful!");
+    response.getWriter().println(json);
+  }
+
+  /**
+   * Converts a ServerStats instance into a JSON string using the Gson library. Note: We first added
+   * the Gson library dependency to pom.xml.
+   */
+  private String convertToJsonUsingGson(ArrayList<String> arr) {
+    Gson gson = new Gson();
+    String json = gson.toJson(arr);
+    return json;
   }
 }

@@ -61,8 +61,25 @@ function removeBabyPhoto() {
 /**
  * Fetches content from Java Servlet
  */
- async function fetchContentFromServlet() {
+async function fetchContentFromServlet() {
     const response = await fetch('/data');
-    const quote = await response.text();
-    document.getElementById('week2-fetch').innerText = quote;
- }
+    const arr = await response.json();
+
+    const stringList = document.getElementById('week2-fetch');
+
+    stringList.innerHTML = '';
+    stringList.appendChild(
+        createListElement(arr[0]));
+    stringList.appendChild(
+        createListElement(arr[1]));
+    stringList.appendChild(
+        createListElement(arr[2]));
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
+
