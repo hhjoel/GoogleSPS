@@ -57,3 +57,12 @@ function removeBabyPhoto() {
     const babyPhotoContainer = document.getElementById('picture-container');
     babyPhotoContainer.innerHTML = '';
 }
+
+/**
+ * Fetches content from Java Servlet
+ */
+ async function fetchContentFromServlet() {
+    const response = await fetch('/data');
+    const quote = await response.text();
+    document.getElementById('week2-fetch').innerText = quote;
+ }
