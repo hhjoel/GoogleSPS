@@ -26,18 +26,32 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private static ArrayList<String> dummyData = new ArrayList<>();
+  private static ArrayList<String> comments = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    dummyData.add("RandomString1");
-    dummyData.add("RandomString2");
-    dummyData.add("RandomString3");
-
-    String json = convertToJsonUsingGson(dummyData);
+    String json = convertToJsonUsingGson(comments);
 
     response.setContentType("text/html;");
     response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String comment = request.getParameter("comment-input");
+    boolean upperCase = Boolean.parseBoolean(request.getParameter("upper-case"));
+
+    // Convert the text to upper case.
+    if (upperCase) {
+      comment = comment.toUpperCase();
+    }
+
+    if (comment.length() != 0) {
+        comments.add(comment);
+    }
+
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
   }
 
   /**

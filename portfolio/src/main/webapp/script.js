@@ -66,14 +66,12 @@ async function fetchContentFromServlet() {
     const arr = await response.json();
 
     const stringList = document.getElementById('week2-fetch');
-
     stringList.innerHTML = '';
-    stringList.appendChild(
-        createListElement(arr[0]));
-    stringList.appendChild(
-        createListElement(arr[1]));
-    stringList.appendChild(
-        createListElement(arr[2]));
+
+    arr.length === 0 ? stringList.innerHTML = '<h3>No Comments Yet</h3>' : stringList.innerHTML = '<h3>Comments:</h3>';
+
+    arr.map(comment => createListElement(comment))
+        .map(element => stringList.appendChild(element));
 }
 
 /** Creates an <li> element containing text. */
