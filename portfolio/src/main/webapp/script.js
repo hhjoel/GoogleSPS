@@ -57,3 +57,27 @@ function removeBabyPhoto() {
     const babyPhotoContainer = document.getElementById('picture-container');
     babyPhotoContainer.innerHTML = '';
 }
+
+/**
+ * Fetches content from Java Servlet
+ */
+async function fetchContentFromServlet() {
+    const response = await fetch('/data');
+    const arr = await response.json();
+
+    const stringList = document.getElementById('week2-fetch');
+    stringList.innerHTML = '';
+
+    arr.length === 0 ? stringList.innerHTML = '<h3>No Comments Yet</h3>' : stringList.innerHTML = '<h3>Comments:</h3>';
+
+    arr.map(comment => createListElement(comment))
+        .map(element => stringList.appendChild(element));
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
+

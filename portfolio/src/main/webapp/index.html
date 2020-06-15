@@ -10,7 +10,13 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
-        }   
+        }
+        textarea {
+        width: 100%;
+        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+        box-sizing: border-box;         /* Opera/IE 8+ */
+        }
     </style>
     <style type="text/css">
         .changeFont {
@@ -81,7 +87,19 @@
       <button id="picture1" class='myButton' onclick="addBabyPhoto()">View Baby Photo</button>
       <button id="picture2" class='myButton' onclick="removeBabyPhoto()">Hide Baby Photo</button>
       <div id="picture-container" style='height: 100%; width: 100%; object-fit: contain'></div>
-      <h2>---End of Portfolio---</h2>
+      <h2 style="color:blue">---End of Week 1---</h2>
+      <h2>Comments Section</h2>
+        <form action="/data" method="POST">
+            <textarea name="comment-input" placeholder="Enter comment here..." rows="4" ></textarea>
+            <br>
+            <input type="checkbox" name="upper-case" value="true"> Upper-case
+            <br></br>
+            <input type="submit" />
+            <br>
+        </form>
+      <body onload="fetchContentFromServlet()"></body>
+      <div id="week2-fetch"></div>
+      <h2 style="color:blue">---End of Portfolio---</h2>
     </div>
   </body>
 </html>
