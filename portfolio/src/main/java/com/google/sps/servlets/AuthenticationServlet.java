@@ -14,8 +14,10 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.AuthenticationResponse;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,10 +32,24 @@ public class AuthenticationServlet extends HttpServlet {
     response.setContentType("text/html");
 
     UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
-      response.getWriter().println("loggedin");
+    boolean isLoggedIn = userService.isUserLoggedIn() ? true : false;
+
+    if (isLoggedIn) {
+      String userEmail = userService.getCurrentUser().getEmail();
+      String urlToRedirectToAfterUserLogsOut = "/";
+      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+
+      AuthenticationResponse authenticationResponse = new AuthenticationResponse(isLoggedIn, userEmail, "", logoutUrl);
+      String json = new Gson().toJson(authenticationResponse);
+      response.getWriter().println(json);
+
     } else {
-      response.getWriter().println("loggedout");
+      String urlToRedirectToAfterUserLogsIn = "/";
+      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+
+      AuthenticationResponse authenticationResponse = new AuthenticationResponse(isLoggedIn, "", loginUrl, "");
+      String json = new Gson().toJson(authenticationResponse);
+      response.getWriter().println(json);
     }
   }
 }
