@@ -20,7 +20,10 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.sps.AuthenticationException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +31,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
@@ -41,7 +43,10 @@ public class DataServlet extends HttpServlet {
     
     ArrayList<String> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      String comment = (String) entity.getProperty("content");
+      String email = (String) entity.getProperty("email");
+      String content = (String) entity.getProperty("content");
+      String comment = "(" + email + ") " + content;
+      
       comments.add(comment);
     }
     
@@ -61,9 +66,19 @@ public class DataServlet extends HttpServlet {
     }
 
     if (comment.length() != 0) {
+      UserService userService = UserServiceFactory.getUserService();
+      boolean isLoggedIn = userService.isUserLoggedIn() ? true : false;
+      // Ensure user is logged in when this function is called
+      if (!isLoggedIn) {
+        throw new AuthenticationException("User must be logged in to post a comment!");
+      }
+      String userEmail = userService.getCurrentUser().getEmail();
+      
+
       Entity commentEntity = new Entity("Comment");
       commentEntity.setProperty("content", comment);
       commentEntity.setProperty("timestamp", System.currentTimeMillis());
+      commentEntity.setProperty("email", userEmail);
 
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(commentEntity);

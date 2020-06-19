@@ -66,7 +66,6 @@ async function fetchContentFromServlet() {
     const arr = await response.json();
 
     const stringList = document.getElementById('week2-fetch');
-    stringList.innerHTML = '';
 
     arr.length === 0 ? stringList.innerHTML = '<h3>No Comments Yet</h3>' : stringList.innerHTML = '<h3>Comments:</h3>';
 
@@ -120,7 +119,4 @@ document.addEventListener('DOMContentLoaded', async function() {
         logInContainer.appendChild(aElement);
         logInContainer.style.display="block";
     }
-
-    // TODO remove when this week is complete: indication that JS did not throw halfway
-    alert("Function Ran Successfully!");
 }, false);
