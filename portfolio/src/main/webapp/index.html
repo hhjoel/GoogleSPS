@@ -5,54 +5,6 @@
     <title>Joel's Portfolio 😃</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-    <style>
-        img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        }
-        textarea {
-        width: 100%;
-        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-        box-sizing: border-box;         /* Opera/IE 8+ */
-        }
-    </style>
-    <style type="text/css">
-        .changeFont {
-            font-family: 'Arial';
-        }
-        .myButton {
-        background-color: #bbb;
-        padding: .5em;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 6px;
-        color: #fff;
-        font-family: 'Calibri';
-        font-size: 20px;
-        text-decoration: none;
-        border: none;
-        display: inline-block
-        }
-        .myButton:hover {
-        border: none;
-        background: orange;
-        box-shadow: 0px 0px 1px #777;
-        cursor: pointer;
-        }
-        #greeting-container {
-        padding: .5em;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 6px;
-        color: #0000A0;
-        font-family: 'Calibri';
-        font-size: 20px;
-        text-decoration: none;
-        border: none;
-        }
-    </style>
   </head>
   <body>
     <div id="content" class='changeFont'>
@@ -89,16 +41,20 @@
       <div id="picture-container" style='height: 100%; width: 100%; object-fit: contain'></div>
       <h2 style="color:blue">---End of Week 1---</h2>
       <h2>Comments Section</h2>
+      <div id="comments-form" style="display:none">
         <form action="/data" method="POST">
             <textarea name="comment-input" placeholder="Enter comment here..." rows="4" ></textarea>
             <br>
             <input type="checkbox" name="upper-case" value="true"> Upper-case
             <br></br>
             <input type="submit" />
-            <br>
+            <br></br>
         </form>
+      </div>
+      <div id="login-link" style="display:none"></div> 
+      <div id="logout-link" style="display:none"></div>
       <body onload="fetchContentFromServlet()"></body>
-      <div id="week2-fetch"></div>
+      <div id="comments-container"></div>
       <h2 style="color:blue">---End of Portfolio---</h2>
     </div>
   </body>

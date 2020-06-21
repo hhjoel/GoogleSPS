@@ -65,13 +65,16 @@ async function fetchContentFromServlet() {
     const response = await fetch('/data');
     const arr = await response.json();
 
-    const stringList = document.getElementById('week2-fetch');
-    stringList.innerHTML = '';
+    const commentsList = document.getElementById('comments-container');
 
-    arr.length === 0 ? stringList.innerHTML = '<h3>No Comments Yet</h3>' : stringList.innerHTML = '<h3>Comments:</h3>';
+    arr.length === 0 ? commentsList.innerHTML = '<h3>No Comments Yet</h3>' : commentsList.innerHTML = '<h3>Comments:</h3>';
 
+    const commentListElement = document.createElement('ul');
+    commentListElement.classList.add("commentsList");
     arr.map(comment => createListElement(comment))
-        .map(element => stringList.appendChild(element));
+        .map(element => commentListElement.appendChild(element));
+
+    commentsList.appendChild(commentListElement);
 }
 
 /** Creates an <li> element containing text. */
@@ -81,3 +84,43 @@ function createListElement(text) {
   return liElement;
 }
 
+/**
+ * Runs when the page has finished loading
+ */
+document.addEventListener('DOMContentLoaded', async function() {
+    const response = await fetch('/authentication');
+    const authenticationResponse = await response.json();
+    const isLoggedIn = authenticationResponse.isLoggedIn;
+
+    if (isLoggedIn) {
+        const buttonElement = document.createElement('button');
+        buttonElement.innerHTML = "Logout";
+        buttonElement.classList.add("myButton");
+        
+        const logOutUrl = authenticationResponse.logOutUrl;
+        const aElement = document.createElement('a');
+        aElement.href = logOutUrl;
+        aElement.appendChild(buttonElement);
+
+        const logOutContainer = document.getElementById("logout-link");
+        logOutContainer.innerHTML = '';
+        logOutContainer.appendChild(aElement);
+        logOutContainer.style.display="block";
+
+        document.getElementById("comments-form").style.display="block";
+    } else {
+        const buttonElement = document.createElement('button');
+        buttonElement.innerHTML = "Login to Add a Comment";
+        buttonElement.classList.add("myButton");
+        
+        const logInUrl = authenticationResponse.logInUrl;
+        const aElement = document.createElement('a');
+        aElement.href = logInUrl;
+        aElement.appendChild(buttonElement);
+
+        const logInContainer = document.getElementById("login-link");
+        logInContainer.innerHTML = '';
+        logInContainer.appendChild(aElement);
+        logInContainer.style.display="block";
+    }
+}, false);
