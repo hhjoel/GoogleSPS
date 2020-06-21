@@ -49,6 +49,7 @@ public final class FindMeetingQuery {
                 for (int i = timeRange.start(); i < timeRange.end(); i++) { // O(1)
                     isOccupied[i] = true; // O(1)
                 }
+                break;
             }
         }
     }
@@ -72,7 +73,7 @@ public final class FindMeetingQuery {
         }
     }
 
-    // Total Time Complexity = O((24*60)EPlogP) = O(EPlogP)
+    // Total Time Complexity = O(EPlogP + E(24 * 60)) = O(EPlogP)
     return answer;
   }
 
@@ -107,6 +108,8 @@ public final class FindMeetingQuery {
                 int toInsertStart = before == null || before.end() <= timeRange.start() ? timeRange.start() : before.start(); // O(1)
                 int toInsertEnd = after == null || after.end() <= timeRange.end() ? timeRange.end() : after.end(); // O(1)
                 occupiedSlots.add(TimeRange.fromStartEnd(toInsertStart, toInsertEnd, false)); // O(logE)
+
+                break;
             }
         }
     }
@@ -134,6 +137,7 @@ public final class FindMeetingQuery {
         answer.add(TimeRange.fromStartEnd(startTime, TOTAL_SLOTS, false));
     }
 
+    // Time Complexity = O(EPlogP + ElogE)
     return answer;
   }
 
