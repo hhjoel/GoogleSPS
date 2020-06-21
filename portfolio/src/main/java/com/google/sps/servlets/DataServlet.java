@@ -66,8 +66,7 @@ public class DataServlet extends HttpServlet {
     }
 
     if (comment.length() != 0) {
-      UserService userService = UserServiceFactory.getUserService();
-      boolean isLoggedIn = userService.isUserLoggedIn() ? true : false;
+      boolean isLoggedIn = UserServiceFactory.getUserService().isUserLoggedIn() ? true : false;
       // Ensure user is logged in when this function is called
       if (!isLoggedIn) {
         throw new AuthenticationException("User must be logged in to post a comment!");

@@ -65,16 +65,16 @@ async function fetchContentFromServlet() {
     const response = await fetch('/data');
     const arr = await response.json();
 
-    const commentsList = document.getElementById('week2-fetch');
+    const commentsList = document.getElementById('comments-container');
 
     arr.length === 0 ? commentsList.innerHTML = '<h3>No Comments Yet</h3>' : commentsList.innerHTML = '<h3>Comments:</h3>';
 
-    const unorderedList = document.createElement('ul');
-    unorderedList.classList.add("commentsList");
+    const commentListElement = document.createElement('ul');
+    commentListElement.classList.add("commentsList");
     arr.map(comment => createListElement(comment))
-        .map(element => unorderedList.appendChild(element));
+        .map(element => commentListElement.appendChild(element));
 
-    commentsList.appendChild(unorderedList);
+    commentsList.appendChild(commentListElement);
 }
 
 /** Creates an <li> element containing text. */
