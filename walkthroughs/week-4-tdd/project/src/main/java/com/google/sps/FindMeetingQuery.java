@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 public final class FindMeetingQuery {
@@ -35,8 +36,7 @@ public final class FindMeetingQuery {
       return answer;
     }
 
-    // build in O(PlogP) so contains() run in O(logP) instead of O(P), where P is the max number of Attendees per Event
-    TreeSet<String> attendees = new TreeSet(request.getAttendees());
+    TreeSet<String> attendees = new HashSet(request.getAttendees());
 
     // Represents whether each slot of 1 minute is occupied or not
     boolean[] isOccupied = new boolean[TOTAL_SLOTS];  // O(1)
@@ -45,7 +45,7 @@ public final class FindMeetingQuery {
         TimeRange timeRange = e.getWhen();
         Set<String> participants = e.getAttendees();
         for (String p : participants) { // O(P)
-            if (attendees.contains(p)) { // O(logP)
+            if (attendees.contains(p)) { // O(1)
                 for (int i = timeRange.start(); i < timeRange.end(); i++) { // O(1)
                     isOccupied[i] = true; // O(1)
                 }
@@ -73,7 +73,7 @@ public final class FindMeetingQuery {
         }
     }
 
-    // Total Time Complexity = O(EPlogP + E(24 * 60)) = O(EPlogP)
+    // Total Time Complexity = O(EP + E(24 * 60)) = O(EP)
     return answer;
   }
 
@@ -85,8 +85,7 @@ public final class FindMeetingQuery {
       return answer;
     }
 
-    // build in O(PlogP) so contains() run in O(logP) instead of O(P), where P is the max number of Attendees per Event
-    TreeSet<String> attendees = new TreeSet(request.getAttendees());
+    TreeSet<String> attendees = new HashSet(request.getAttendees());
 
     // Invariant: this TreeSet will always consist of a number of non-overlapping TimeRange(s), sorted by start time
     TreeSet<TimeRange> occupiedSlots = new TreeSet<TimeRange>(
@@ -97,7 +96,7 @@ public final class FindMeetingQuery {
         TimeRange timeRange = e.getWhen();
         Set<String> participants = e.getAttendees();
         for (String p : participants) { // O(P)
-            if (attendees.contains(p)) { // O(logP)
+            if (attendees.contains(p)) { // O(1)
                 TimeRange before = occupiedSlots.floor(timeRange); // O(logE)
                 TimeRange after = occupiedSlots.floor(TimeRange.fromStartDuration(timeRange.end(), DUMMY_DURATION)); // O(logE)
 
@@ -137,7 +136,7 @@ public final class FindMeetingQuery {
         answer.add(TimeRange.fromStartEnd(startTime, TOTAL_SLOTS, false));
     }
 
-    // Time Complexity = O(EPlogP + ElogE)
+    // Time Complexity = O(EP + ElogE)
     return answer;
   }
 
