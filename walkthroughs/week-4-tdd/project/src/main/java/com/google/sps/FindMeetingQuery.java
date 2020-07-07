@@ -36,7 +36,7 @@ public final class FindMeetingQuery {
       return answer;
     }
 
-    TreeSet<String> attendees = new HashSet(request.getAttendees());
+    HashSet<String> attendees = new HashSet(request.getAttendees());
 
     // Represents whether each slot of 1 minute is occupied or not
     boolean[] isOccupied = new boolean[TOTAL_SLOTS];  // O(1)
@@ -85,7 +85,7 @@ public final class FindMeetingQuery {
       return answer;
     }
 
-    TreeSet<String> attendees = new HashSet(request.getAttendees());
+    HashSet<String> attendees = new HashSet(request.getAttendees());
 
     // Invariant: this TreeSet will always consist of a number of non-overlapping TimeRange(s), sorted by start time
     TreeSet<TimeRange> occupiedSlots = new TreeSet<TimeRange>(
